@@ -14,6 +14,9 @@ data class ManyMoviesResponse(
 
 interface MoviesAPI {
     @GET("discover/movie?primary_release_year=2021&sort_by=vote_average.desc&$apiKey")
+    fun getUnpopularMovies(): Single<ManyMoviesResponse>
+
+    @GET("discover/movie?sort_by=popularity.desc&$apiKey")
     fun getMovies(): Single<ManyMoviesResponse>
 
     @GET("discover/movie/{movieId}?$apiKey")
