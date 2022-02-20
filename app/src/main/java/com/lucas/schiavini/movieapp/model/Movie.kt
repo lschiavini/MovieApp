@@ -16,7 +16,8 @@ data class Movie (
     val id: String,
 
     @ColumnInfo(name = "release_date")
-    val release_date: String?,
+    @SerializedName("release_date")
+    val releaseDate: String?,
 
     @ColumnInfo(name = "duration_from_api")
     @SerializedName("duration")
