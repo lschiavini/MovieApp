@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+        <variable
+            name="movie"
+            type="com.lucas.schiavini.movieapp.model.Movie" />
+        <variable
+            name="listener"
+            type="com.lucas.schiavini.movieapp.view.MovieClickListener" />
+    </data>
+
+    <LinearLayout
+        android:id="@+id/linearLayoutItem"
+        android:layout_width="match_parent"
+        android:layout_height="125dp"
+        android:orientation="horizontal"
+        android:onClick="@{listener::onMovieClicked}">
+
+        <TextView
+            android:id="@+id/movieId"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            android:text="@{movie.id}" />
+
+        <ImageView
+            android:id="@+id/imageView"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="2"
+            android:imageUrl="@{movie.imageUrl}"
+            android:padding="4dp"
+            android:contentDescription="@string/movie_image" />
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="3"
+            android:gravity="center_vertical"
+            android:orientation="vertical"
+            android:padding="4dp">
+
+            <TextView
+                android:id="@+id/name"
+                style="@style/Title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@{movie.title}" />
+
+            <TextView
+                android:id="@+id/description"
+                style="@style/Text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@{movie.description}" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+</layout>
