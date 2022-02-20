@@ -12,7 +12,7 @@ import com.lucas.schiavini.movieapp.R
 import com.lucas.schiavini.movieapp.model.Movie
 import com.lucas.schiavini.movieapp.placeholder.PlaceholderContent
 import com.lucas.schiavini.movieapp.viewmodel.MovieListViewModel
-import kotlinx.android.synthetic.main.movies_list_fragment.moviesList
+import kotlinx.android.synthetic.main.movies_list_fragment.*
 
 /**
  * A fragment representing a list of Items.
@@ -23,7 +23,7 @@ class MoviesListFragment : Fragment() {
 
     private var columnCount = 1
 //    private val movieListAdapter = MyMovieListAdapter(arrayListOf())
-    private val movieListAdapter = MovieListAdapter(PlaceholderContent.ITEMS as ArrayList<Movie>)
+    private var movieListAdapter = MovieListAdapter(PlaceholderContent.ITEMS as ArrayList<Movie>)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -44,6 +44,15 @@ class MoviesListFragment : Fragment() {
             layoutManager = LinearLayoutManager(context)
         }
 
+        refreshLayout.setOnRefreshListener {
+            moviesList.visibility = View.GONE
+            listError.visibility = View.GONE
+            loadingView.visibility = View.VISIBLE
+            viewModel.refresh()
+//            viewModel.refreshBypassCache()
+            refreshLayout.isRefreshing = false
+        }
+
         observeViewModel()
     }
 
@@ -59,6 +68,22 @@ class MoviesListFragment : Fragment() {
             movies.let {
                 moviesList.visibility = View.VISIBLE
                 movieListAdapter.updateMoviesList(movies)
+            }
+        })
+
+        viewModel.moviesLoadError.observe(viewLifecycleOwner, Observer { isError ->
+            isError?.let {
+                listError.visibility = if (it) View.VISIBLE else View.GONE
+            }
+        })
+
+        viewModel.loading.observe(viewLifecycleOwner, Observer { isLoading ->
+            isLoading?.let {
+                loadingView.visibility = if (it) View.VISIBLE else View.GONE
+                if(it) {
+                    listError.visibility = View.GONE
+                    moviesList.visibility = View.GONE
+                }
             }
         })
     }
