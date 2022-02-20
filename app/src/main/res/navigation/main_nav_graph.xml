@@ -11,7 +11,12 @@
         tools:layout="@layout/movies_list_fragment" >
         <action
             android:id="@+id/action_movieFragment_to_movieDetail"
-            app:destination="@id/movieDetail" />
+            app:destination="@id/movieDetail"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            />
+
+
     </fragment>
     <fragment
         android:id="@+id/movieDetail"
@@ -21,9 +26,11 @@
         <action
             android:id="@+id/action_movieDetail_to_movieFragment"
             app:destination="@id/moviesFragment" />
+
         <argument
-            android:name="movieUuid"
+            android:name="movieId"
             android:defaultValue="0"
-            app:argType="integer" />
+            app:argType="string" />
+
     </fragment>
 </navigation>

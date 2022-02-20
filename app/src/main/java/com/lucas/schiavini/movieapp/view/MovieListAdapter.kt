@@ -5,6 +5,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
+import androidx.fragment.app.Fragment
+import androidx.navigation.Navigation
+import androidx.navigation.Navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.lucas.schiavini.movieapp.R
 import com.lucas.schiavini.movieapp.databinding.MovieItemBinding
@@ -40,9 +43,9 @@ class MovieListAdapter(
 
     override fun onMovieClicked(v: View) {
         val id = v.movieId.text.toString()
-
-
-//        Navigation.findNavController(view).navigate(action)
+        val action = MoviesListFragmentDirections.actionMovieFragmentToMovieDetail()
+        action.movieId = id
+        Navigation.findNavController(v).navigate(action)
     }
 
     override fun getItemCount(): Int = moviesList.size
