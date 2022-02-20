@@ -9,10 +9,10 @@ import android.view.ViewGroup
 import com.lucas.schiavini.movieapp.R
 import com.lucas.schiavini.movieapp.viewmodel.MovieDetailViewModel
 
-class MovieDetail : Fragment() {
+class MovieDetailFragment : Fragment() {
 
     companion object {
-        fun newInstance() = MovieDetail()
+        fun newInstance() = MovieDetailFragment()
     }
 
     private lateinit var viewModel: MovieDetailViewModel
