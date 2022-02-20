@@ -31,11 +31,11 @@ object PlaceholderContent {
                 Movie(
                     title = "aaaaaa",
                     id = "i",
-                    release_date= "2022/02/02",
+                    releaseDate= "2022/02/02",
                     duration ="3 hours",
                     description = "bbbbb",
                     score = "2/5",
-                    imageUrl = "aaaaaaaaaaaaaaaaaaa"
+                    imageUrl = "https://www.pinclipart.com/picdir/big/407-4078267_shopping-electricity-supplier-transaction-online-shopping-drawing-clipart.png"
                 )
             )
         }
