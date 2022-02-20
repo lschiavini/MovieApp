@@ -6,9 +6,9 @@
     app:startDestination="@id/moviesFragment">
     <fragment
         android:id="@+id/moviesFragment"
-        android:name="com.lucas.schiavini.movieapp.view.MoviesFragment"
+        android:name="com.lucas.schiavini.movieapp.view.MoviesListFragment"
         android:label="Movie List"
-        tools:layout="@layout/fragment_item_list" >
+        tools:layout="@layout/movies_list_fragment" >
         <action
             android:id="@+id/action_movieFragment_to_movieDetail"
             app:destination="@id/movieDetail" />

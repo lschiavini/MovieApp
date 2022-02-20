@@ -5,16 +5,19 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.TextView
 
-import com.lucas.schiavini.movieapp.placeholder.PlaceholderContent.PlaceholderItem
 import com.lucas.schiavini.movieapp.databinding.FragmentItemBinding
+import com.lucas.schiavini.movieapp.model.Movie
 
-/**
- * [RecyclerView.Adapter] that can display a [PlaceholderItem].
- * TODO: Replace the implementation with code for your data type.
- */
-class MyMovieListAdapter(
-    private val values: List<PlaceholderItem>
-) : RecyclerView.Adapter<MyMovieListAdapter.ViewHolder>() {
+class MovieListAdapter(
+    private val moviesList: ArrayList<Movie>
+) : RecyclerView.Adapter<MovieListAdapter.ViewHolder>() {
+
+
+    fun updateMoviesList(newMoviesList: List<Movie>) {
+        moviesList.clear()
+        moviesList.addAll(newMoviesList)
+        // TODO: notifyDataSetChanged()
+    }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
 
@@ -29,12 +32,12 @@ class MyMovieListAdapter(
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val item = values[position]
-        holder.idView.text = item.id
-        holder.contentView.text = item.content
+        val item = moviesList[position]
+        holder.idView.text = item.title
+        holder.contentView.text = item.title
     }
 
-    override fun getItemCount(): Int = values.size
+    override fun getItemCount(): Int = moviesList.size
 
     inner class ViewHolder(binding: FragmentItemBinding) : RecyclerView.ViewHolder(binding.root) {
         val idView: TextView = binding.itemNumber
