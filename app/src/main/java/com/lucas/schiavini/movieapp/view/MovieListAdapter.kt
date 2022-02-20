@@ -44,7 +44,7 @@ class MovieListAdapter(
     override fun onMovieClicked(v: View) {
         val id = v.movieId.text.toString()
         val action = MoviesListFragmentDirections.actionMovieFragmentToMovieDetail()
-        action.movieId = id
+        action.movieId = id.toInt()
         Navigation.findNavController(v).navigate(action)
     }
 

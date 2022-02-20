@@ -24,6 +24,10 @@ data class Movie (
     @SerializedName("duration")
     val duration: String?,
 
+    @ColumnInfo(name = "director")
+    @SerializedName("director")
+    val director: String?,
+
     @ColumnInfo(name = "description")
     @SerializedName("description")
     val description: String?,
