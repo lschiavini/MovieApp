@@ -5,13 +5,15 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.activity.addCallback
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
+import androidx.navigation.Navigation.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.lucas.schiavini.movieapp.R
 import com.lucas.schiavini.movieapp.model.Movie
-import com.lucas.schiavini.movieapp.placeholder.PlaceholderContent
 import com.lucas.schiavini.movieapp.viewmodel.MovieListViewModel
+import kotlinx.android.synthetic.main.movie_item.view.*
 import kotlinx.android.synthetic.main.movies_list_fragment.*
 
 /**
@@ -21,22 +23,12 @@ class MoviesListFragment : Fragment() {
 
     private lateinit var viewModel: MovieListViewModel
 
-    private var columnCount = 1
-//    private val movieListAdapter = MyMovieListAdapter(arrayListOf())
-    private var movieListAdapter = MovieListAdapter(PlaceholderContent.ITEMS as ArrayList<Movie>)
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-
-        arguments?.let {
-            columnCount = it.getInt(ARG_COLUMN_COUNT)
-        }
-    }
+    private var movieListAdapter = MovieListAdapter(arrayListOf())
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        viewModel = ViewModelProviders.of(this).get(MovieListViewModel::class.java)
+        viewModel = ViewModelProviders.of(this)[MovieListViewModel::class.java]
         viewModel.refresh()
 
         moviesList.apply {
@@ -48,9 +40,13 @@ class MoviesListFragment : Fragment() {
             moviesList.visibility = View.GONE
             listError.visibility = View.GONE
             loadingView.visibility = View.VISIBLE
-            viewModel.refresh()
-//            viewModel.refreshBypassCache()
+            viewModel.refreshBypassCache()
             refreshLayout.isRefreshing = false
+        }
+
+        requireActivity().onBackPressedDispatcher.addCallback(this) {
+            val action = MovieDetailFragmentDirections.actionMovieDetailToMovieFragment()
+            findNavController(view).navigate(action)
         }
 
         observeViewModel()
@@ -86,20 +82,5 @@ class MoviesListFragment : Fragment() {
                 }
             }
         })
-    }
-
-    companion object {
-
-        // TODO: Customize parameter argument names
-        const val ARG_COLUMN_COUNT = "column-count"
-
-        // TODO: Customize parameter initialization
-        @JvmStatic
-        fun newInstance(columnCount: Int) =
-            MoviesListFragment().apply {
-                arguments = Bundle().apply {
-                    putInt(ARG_COLUMN_COUNT, columnCount)
-                }
-            }
     }
 }
