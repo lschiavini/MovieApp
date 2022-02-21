@@ -1,4 +1,5 @@
 package com.lucas.schiavini.movieapp.model
+import com.google.gson.JsonObject
 import io.reactivex.Single
 import retrofit2.http.GET
 import retrofit2.http.Path
@@ -12,6 +13,8 @@ data class ManyMoviesResponse(
     val total_results: Int
 )
 
+typealias SingleMovie = Single<Movie>
+
 interface MoviesAPI {
     @GET("discover/movie?primary_release_year=2021&sort_by=vote_average.desc&$apiKey")
     fun getUnpopularMovies(): Single<ManyMoviesResponse>
@@ -19,7 +22,7 @@ interface MoviesAPI {
     @GET("discover/movie?sort_by=popularity.desc&$apiKey")
     fun getMovies(): Single<ManyMoviesResponse>
 
-    @GET("discover/movie/{movieId}?$apiKey")
-    fun getMovie(@Path("movieId", encoded = true) movieId: String): Single<Movie>
+    @GET("movie/{movieId}?$apiKey&append_to_response=credits")
+    fun getMovie(@Path("movieId", encoded = true) movieId: String): Single<JsonObject>
 
 }

@@ -1,5 +1,6 @@
 package com.lucas.schiavini.movieapp.model
 
+import com.google.gson.JsonObject
 import io.reactivex.Single
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
@@ -21,7 +22,7 @@ class MoviesAPIService {
         return api.getMovies()
     }
 
-    fun getMovie(id: String) : Single<Movie> {
+    fun getMovie(id: String) : Single<JsonObject> {
         return api.getMovie(id)
     }
 }
