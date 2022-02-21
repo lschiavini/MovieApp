@@ -35,8 +35,9 @@ class MovieDetailFragment : Fragment() {
         arguments?.let {
             movieId = MovieDetailFragmentArgs.fromBundle(it).movieId
         }
-        viewModel = ViewModelProvider(this).get(MovieDetailViewModel::class.java)
-        viewModel.fetch(movieId)
+        viewModel = ViewModelProvider(this)[MovieDetailViewModel::class.java]
+        viewModel.fetchMovieFromRemote(movieId)
+//        viewModel.fetch(movieId)
         observeViewModel()
     }
 
