@@ -2,7 +2,6 @@
 
 
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
     <data>
         <variable
@@ -19,14 +18,14 @@
 
 
         <ImageView
+            android:id="@+id/movieImage"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/movieImage"
             android:layout_alignParentTop="true"
-            android:scaleType="fitCenter"
+            android:contentDescription="@string/movie_image"
+            android:imageUrl="@{movie.imageUrl}"
             android:minHeight="200dp"
-            android:imageUrl="@{movie.imageBaseUrl+movie.imageUrl}"
-            android:contentDescription="@string/movie_image" />
+            android:scaleType="fitCenter" />
 
         <TextView
             android:id="@+id/movieName"
@@ -41,21 +40,23 @@
 
         <TextView
             android:id="@+id/director"
+            style="@style/Text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/movieName"
-            android:text="@{movie.director}"
-            style="@style/Text"
             android:layout_centerHorizontal="true"
-            android:layout_margin="4dp"
-            />
+            android:layout_marginStart="4dp"
+            android:layout_marginTop="4dp"
+            android:layout_marginEnd="4dp"
+            android:layout_marginBottom="4dp"
+            android:text="@{movie.director != null ? `Director: ` + movie.director : ``}" />
 
         <TextView
             android:id="@+id/movieDescription"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/director"
-            android:text="@{movie.description}"
+            android:text="@{`Description: ` + movie.description}"
             style="@style/Text"
             android:layout_centerHorizontal="true"
             android:layout_margin="4dp"
@@ -66,7 +67,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/movieDescription"
-            android:text="@{movie.releaseDate}"
+            android:text="@{`Release Date: ` + movie.releaseDate}"
             style="@style/Text"
             android:layout_centerHorizontal="true"
             android:layout_margin="4dp"
@@ -77,7 +78,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/movieReleaseYear"
-            android:text="@{movie.duration}"
+            android:text="@{`Duration(min): ` + movie.duration}"
             style="@style/Text"
             android:layout_centerHorizontal="true"
             android:layout_margin="4dp"
@@ -88,7 +89,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/movieDuration"
-            android:text="@{movie.score}"
+            android:text="@{`Score: ` + movie.score}"
             style="@style/Text"
             android:layout_centerHorizontal="true"
             android:layout_margin="4dp"
