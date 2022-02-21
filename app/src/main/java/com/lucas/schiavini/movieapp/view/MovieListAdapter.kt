@@ -45,7 +45,7 @@ class MovieListAdapter(
         val id = v.movieId.text.toString()
         val action = MoviesListFragmentDirections.actionMovieFragmentToMovieDetail()
         action.movieId = id.toInt()
-        Navigation.findNavController(v).navigate(action)
+        findNavController(v).navigate(action)
     }
 
     override fun getItemCount(): Int = moviesList.size

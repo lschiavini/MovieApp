@@ -25,7 +25,10 @@
         tools:layout="@layout/movie_detail_fragment" >
         <action
             android:id="@+id/action_movieDetail_to_movieFragment"
-            app:destination="@id/moviesFragment" />
+            app:destination="@id/moviesFragment"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            />
 
         <argument
             android:name="movieId"
