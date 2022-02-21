@@ -28,6 +28,7 @@ Minimal **Kotlin Android MVVM** project with Room, Navigation, RxJava, RetroFit,
     - Gradle: 4.2.1
 
 - If you have the requirements, just hit the Run button from Android Studio
+- Attention to the requirement that because it is my personal API key used, you can't make more than 1000 requests/week.
 
 ## Architecture
 The architecture chosen for the app was Model View ViewModel (MVVM), whereas business logic is located at the many ViewModels. 
