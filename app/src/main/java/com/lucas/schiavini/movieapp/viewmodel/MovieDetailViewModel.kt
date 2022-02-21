@@ -9,14 +9,11 @@ import com.google.gson.JsonPrimitive
 import com.lucas.schiavini.movieapp.model.Movie
 import com.lucas.schiavini.movieapp.model.MovieDatabase
 import com.lucas.schiavini.movieapp.model.MoviesAPIService
-import io.reactivex.Observable
-import io.reactivex.Single
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.observers.DisposableSingleObserver
 import io.reactivex.schedulers.Schedulers
 import kotlinx.coroutines.launch
-import retrofit2.Response
 
 class MovieDetailViewModel(application: Application) : BaseViewModel(application) {
     val movieLiveData = MutableLiveData<Movie>()
