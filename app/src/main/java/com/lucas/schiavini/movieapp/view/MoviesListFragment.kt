@@ -13,7 +13,6 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.lucas.schiavini.movieapp.R
 import com.lucas.schiavini.movieapp.model.Movie
 import com.lucas.schiavini.movieapp.viewmodel.MovieListViewModel
-import kotlinx.android.synthetic.main.movie_item.view.*
 import kotlinx.android.synthetic.main.movies_list_fragment.*
 
 /**
