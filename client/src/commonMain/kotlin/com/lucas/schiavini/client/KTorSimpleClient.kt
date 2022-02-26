@@ -43,7 +43,28 @@ class KTorSimpleClient {
             parameter("append_to_response", "credits")
             parameter("api_key", apiKey)
         }
-        return Json.decodeFromString(httpResponse.bodyAsText())
+        val movie = Json.decodeFromString<Movie>(httpResponse.bodyAsText())
+        val director = getDirectorFromCredits(movie)
+        movie.director = director
+        return movie
+    }
+
+    private fun getDirectorFromCredits(movie: Movie) : String {
+        return try{
+            val credits = movie.credits
+            val crew = credits.crew
+            var director = ""
+            for(element in crew) {
+                val currJob = element.job
+                if (currJob == "Director") {
+                    director = element.name
+                    break
+                }
+            }
+            director
+        } catch(e: Exception) {
+            ""
+        }
     }
 
 }

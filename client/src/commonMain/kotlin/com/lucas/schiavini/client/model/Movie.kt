@@ -57,7 +57,8 @@ data class Movie(
     @SerialName("vote_average")
     val voteAverage: Double,
     @SerialName("vote_count")
-    val voteCount: Int
+    val voteCount: Int,
+    var director: String? = ""
 )
 
 @Serializable
@@ -143,7 +144,7 @@ data class Cast(
     @SerialName("popularity")
     val popularity: Double,
     @SerialName("profile_path")
-    val profilePath: String
+    val profilePath: String?
 )
 
 @Serializable
