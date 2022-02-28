@@ -48,6 +48,8 @@ def roomVersion = '2.4.1'
 def navVersion = '2.5.0-alpha02'
 def preferencesVersion = '1.2.0'
 
+def mockKVersion = "1.12.2"
+
 dependencies {
     implementation project(":client")
 
@@ -56,6 +58,7 @@ dependencies {
     implementation 'androidx.lifecycle:lifecycle-extensions:2.2.0'
 
     implementation "androidx.room:room-runtime:$roomVersion"
+    androidTestImplementation 'org.junit.jupiter:junit-jupiter'
     kapt "androidx.room:room-compiler:$roomVersion"
     implementation "androidx.room:room-ktx:$roomVersion"
 
@@ -85,6 +88,12 @@ dependencies {
     androidTestImplementation 'androidx.test.ext:junit:1.1.3'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'
 
-    implementation "androidx.preference:preference:$preferencesVersion"
+    testImplementation "io.mockk:mockk-common:$mockKVersion"
+    testImplementation "io.mockk:mockk:$mockKVersion"
+    testImplementation "io.mockk:mockk-agent-jvm:$mockKVersion"
+    androidTestImplementation "io.mockk:mockk-android:$mockKVersion"
+    androidTestImplementation "io.mockk:mockk-agent-jvm:$mockKVersion"
+
+    implementation "androidx.preference:preference-ktx:$preferencesVersion"
 
 }
