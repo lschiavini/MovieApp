@@ -39,7 +39,7 @@ class KTorSimpleClient {
 
     suspend fun getMovie(id: String): Movie {
         val httpResponse = client.get {
-            url("$movieApiAddress/movie/634649")
+            url("$movieApiAddress/movie/$id")
             parameter("append_to_response", "credits")
             parameter("api_key", apiKey)
         }

@@ -10,8 +10,8 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.Navigation.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.lucas.schiavini.client.model.MovieResult
 import com.lucas.schiavini.movieapp.R
-import com.lucas.schiavini.movieapp.model.Movie
 import com.lucas.schiavini.movieapp.viewmodel.MovieListViewModel
 import kotlinx.android.synthetic.main.movies_list_fragment.*
 
@@ -59,7 +59,7 @@ class MoviesListFragment : Fragment() {
     }
 
     private fun observeViewModel() {
-        viewModel.movies.observe(viewLifecycleOwner, Observer { movies: List<Movie> ->
+        viewModel.movies.observe(viewLifecycleOwner, Observer { movies: List<MovieResult> ->
             movies.let {
                 moviesList.visibility = View.VISIBLE
                 movieListAdapter.updateMoviesList(movies)

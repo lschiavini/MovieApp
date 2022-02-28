@@ -6,7 +6,7 @@
     <data>
         <variable
             name="movie"
-            type="com.lucas.schiavini.movieapp.model.Movie" />
+            type="com.lucas.schiavini.client.model.MovieResult" />
         <variable
             name="listener"
             type="com.lucas.schiavini.movieapp.view.MovieClickListener" />
@@ -24,14 +24,14 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:visibility="gone"
-            android:text="@{movie.id}" />
+            android:text="@{String.valueOf(movie.id)}" />
 
         <ImageView
             android:id="@+id/imageView"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="2"
-            android:imageUrl="@{movie.imageUrl}"
+            android:imageUrl="@{movie.posterPath}"
             android:padding="4dp"
             android:contentDescription="@string/movie_image" />
 

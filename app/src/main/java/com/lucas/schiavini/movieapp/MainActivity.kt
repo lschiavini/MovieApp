@@ -15,7 +15,6 @@ import kotlinx.coroutines.runBlocking
 
 class MainActivity : AppCompatActivity() {
     private lateinit var navController: NavController
-    private lateinit var listOfMovies: MovieListResult
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -24,26 +23,6 @@ class MainActivity : AppCompatActivity() {
             supportFragmentManager.findFragmentById(R.id.fragment) as NavHostFragment
         navController = navHostFragment.navController
         NavigationUI.setupActionBarWithNavController(this, navController)
-        val movies = getAllMovies()
-        Log.e("MOVIESSSSS", movies)
     }
-
-    private fun getAllMovies(): String {
-        var allMovies = ""
-        runBlocking {
-            launch {
-                try{
-//                    allMovies = KTorSimpleClient().getMovie("66")
-                    listOfMovies = KTorSimpleClient().getMovies()
-                    allMovies = listOfMovies.results[0].overview
-                } catch (e:Exception){
-                    Log.e("Error AAAAAA", e.toString())
-                }
-
-            }
-        }
-        return allMovies
-    }
-
 
 }
