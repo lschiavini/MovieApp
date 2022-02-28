@@ -7,6 +7,7 @@ plugins {
 
 version = "1.0"
 val ktorVersion = "2.0.0-beta-1"
+val mockKVersion = "1.12.2"
 kotlin {
     android()
 //    iosX64()
@@ -34,11 +35,14 @@ kotlin {
         val commonTest by getting {
             dependencies {
                 implementation(kotlin("test"))
+//                implementation("io.mockk:mockk-common:$mockKVersion")
             }
         }
         val androidMain by getting {
             dependencies {
                 implementation("io.ktor:ktor-client-android:$ktorVersion")
+//                implementation("io.mockk:mockk:$mockKVersion")
+//                implementation("io.mockk:mockk-agent-jvm:$mockKVersion")
             }
         }
         val androidTest by getting
@@ -74,3 +78,6 @@ android {
         targetSdk = 31
     }
 }
+//dependencies {
+//    testImplementation("org.junit.jupiter:junit-jupiter")
+//}

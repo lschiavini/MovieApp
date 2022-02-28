@@ -8,7 +8,7 @@ data class MovieListResult(
     @SerialName("page")
     val page: Int,
     @SerialName("results")
-    val results: List<Result>,
+    val movieResults: List<MovieResult>,
     @SerialName("total_pages")
     val totalPages: Int,
     @SerialName("total_results")
@@ -16,7 +16,7 @@ data class MovieListResult(
 )
 
 @Serializable
-data class Result(
+data class MovieResult(
     @SerialName("adult")
     val adult: Boolean,
     @SerialName("backdrop_path")
@@ -24,7 +24,7 @@ data class Result(
     @SerialName("genre_ids")
     val genreIds: List<Int>,
     @SerialName("id")
-    val id: Int,
+    val id: Int = 0,
     @SerialName("original_language")
     val originalLanguage: String,
     @SerialName("original_title")
@@ -34,15 +34,15 @@ data class Result(
     @SerialName("popularity")
     val popularity: Double,
     @SerialName("poster_path")
-    val posterPath: String,
+    val posterPath: String?,
     @SerialName("release_date")
-    val releaseDate: String,
+    val releaseDate: String?,
     @SerialName("title")
     val title: String,
     @SerialName("video")
     val video: Boolean,
     @SerialName("vote_average")
-    val voteAverage: Double,
+    val voteAverage: Double?,
     @SerialName("vote_count")
-    val voteCount: Int
+    val voteCount: Int?
 )
