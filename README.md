@@ -1,7 +1,5 @@
 # MovieApp
 
-App developed as a part of an online examination for Kotlin role
-
 Minimal **Kotlin Android MVVM** project with Room, Navigation, RxJava, RetroFit, Shared preferences and [The MovieDataBase](https://developers.themoviedb.org/).
 
 ## Requirements
