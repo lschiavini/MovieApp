@@ -8,10 +8,9 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
+import com.lucas.schiavini.client.model.Movie
 import com.lucas.schiavini.movieapp.R
 import com.lucas.schiavini.movieapp.databinding.MovieDetailFragmentBinding
-import com.lucas.schiavini.movieapp.databinding.MovieDetailFragmentBindingImpl
-import com.lucas.schiavini.movieapp.model.Movie
 import com.lucas.schiavini.movieapp.viewmodel.MovieDetailViewModel
 
 class MovieDetailFragment : Fragment() {

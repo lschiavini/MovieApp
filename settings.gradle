@@ -3,6 +3,10 @@ pluginManagement {
         gradlePluginPortal()
         google()
         mavenCentral()
+        maven {
+            url "https://maven.pkg.jetbrains.space/public/p/ktor/eap"
+        }
+        gradlePluginPortal()
     }
 }
 dependencyResolutionManagement {
@@ -10,7 +14,13 @@ dependencyResolutionManagement {
     repositories {
         google()
         mavenCentral()
+        maven {
+            url "https://maven.pkg.jetbrains.space/public/p/ktor/eap"
+        }
+        gradlePluginPortal()
     }
 }
 rootProject.name = "MovieApp"
+//rootProject.enableFeaturePreview("GRADLE_METADATA")
 include ':app'
+include ':client'

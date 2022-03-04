@@ -6,7 +6,7 @@
     <data>
         <variable
             name="movie"
-            type="com.lucas.schiavini.movieapp.model.Movie" />
+            type="com.lucas.schiavini.client.model.Movie" />
 
     </data>
 
@@ -23,7 +23,7 @@
             android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
             android:contentDescription="@string/movie_image"
-            android:imageUrl="@{movie.imageUrl}"
+            android:imageUrl="@{movie.posterPath}"
             android:minHeight="200dp"
             android:scaleType="fitCenter" />
 
@@ -56,7 +56,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/director"
-            android:text="@{`Description: ` + movie.description}"
+            android:text="@{`Description: ` + movie.overview}"
             style="@style/Text"
             android:layout_centerHorizontal="true"
             android:layout_margin="4dp"
@@ -78,7 +78,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/movieReleaseYear"
-            android:text="@{`Duration(min): ` + movie.duration}"
+            android:text="@{`Duration(min): ` + movie.runtime}"
             style="@style/Text"
             android:layout_centerHorizontal="true"
             android:layout_margin="4dp"
@@ -89,7 +89,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/movieDuration"
-            android:text="@{`Score: ` + movie.score}"
+            android:text="@{`Score: ` + movie.voteAverage}"
             style="@style/Text"
             android:layout_centerHorizontal="true"
             android:layout_margin="4dp"

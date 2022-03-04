@@ -1,5 +1,6 @@
 package com.lucas.schiavini.movieapp.model
 import com.google.gson.JsonObject
+import com.lucas.schiavini.client.model.Movie
 import io.reactivex.Single
 import retrofit2.http.GET
 import retrofit2.http.Path
