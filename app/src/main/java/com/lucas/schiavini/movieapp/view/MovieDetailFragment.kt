@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import com.lucas.schiavini.client.model.Movie
+import com.lucas.schiavini.movieapp.AndroidRepository
 import com.lucas.schiavini.movieapp.R
 import com.lucas.schiavini.movieapp.databinding.MovieDetailFragmentBinding
 import com.lucas.schiavini.movieapp.viewmodel.MovieDetailViewModel
@@ -35,6 +36,8 @@ class MovieDetailFragment : Fragment() {
             movieId = MovieDetailFragmentArgs.fromBundle(it).movieId
         }
         viewModel = ViewModelProvider(this)[MovieDetailViewModel::class.java]
+        val androidRepo = AndroidRepository(requireContext())
+        viewModel.repository = androidRepo.repository
         viewModel.fetchMovieFromRemote(movieId)
 //        viewModel.fetch(movieId)
         observeViewModel()

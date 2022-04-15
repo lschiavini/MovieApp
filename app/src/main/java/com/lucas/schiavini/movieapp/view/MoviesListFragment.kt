@@ -11,6 +11,7 @@ import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.Navigation.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.lucas.schiavini.client.model.MovieResult
+import com.lucas.schiavini.movieapp.AndroidRepository
 import com.lucas.schiavini.movieapp.R
 import com.lucas.schiavini.movieapp.viewmodel.MovieListViewModel
 import kotlinx.android.synthetic.main.movies_list_fragment.*
@@ -28,6 +29,8 @@ class MoviesListFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         viewModel = ViewModelProviders.of(this)[MovieListViewModel::class.java]
+        val androidRepo = AndroidRepository(requireContext())
+        viewModel.repository = androidRepo.repository
         viewModel.refresh()
 
         moviesList.apply {

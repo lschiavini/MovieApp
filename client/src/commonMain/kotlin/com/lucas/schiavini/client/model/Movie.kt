@@ -1,6 +1,5 @@
 package com.lucas.schiavini.client.model
 import kotlinx.serialization.Serializable
-
 import kotlinx.serialization.SerialName
 
 
@@ -59,8 +58,7 @@ data class Movie(
     @SerialName("vote_count")
     val voteCount: Int,
     var director: String? = ""
-) {
-}
+)
 
 @Serializable
 data class BelongsToCollection(

@@ -9,6 +9,7 @@ buildscript {
         // in the individual module build.gradle files
 
         classpath "androidx.navigation:navigation-safe-args-gradle-plugin:2.5.0-alpha02"
+        classpath 'com.squareup.sqldelight:gradle-plugin:1.5.3'
     }
 }
 

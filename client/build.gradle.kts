@@ -3,6 +3,7 @@ plugins {
     kotlin("native.cocoapods")
     id("com.android.library")
     id("org.jetbrains.kotlin.plugin.serialization") version "1.6.20-RC"
+    id("com.squareup.sqldelight")
 }
 
 version = "1.0"
@@ -26,6 +27,7 @@ kotlin {
     sourceSets {
         val commonMain by getting {
             dependencies {
+                implementation("com.squareup.sqldelight:runtime:1.5.3")
                 implementation("io.ktor:ktor-client-core:$ktorVersion")
                 implementation("io.ktor:ktor-client-content-negotiation:$ktorVersion")
                 implementation("io.ktor:ktor-client-serialization:$ktorVersion")
@@ -40,6 +42,7 @@ kotlin {
         }
         val androidMain by getting {
             dependencies {
+                implementation ("com.squareup.sqldelight:android-driver:1.5.3")
                 implementation("io.ktor:ktor-client-android:$ktorVersion")
 //                implementation("io.mockk:mockk:$mockKVersion")
 //                implementation("io.mockk:mockk-agent-jvm:$mockKVersion")
@@ -55,6 +58,8 @@ kotlin {
 //            iosArm64Main.dependsOn(this)
 //            iosSimulatorArm64Main.dependsOn(this)
             dependencies {
+
+                implementation ("com.squareup.sqldelight:native-driver:1.5.3")
                 implementation("io.ktor:ktor-client-ios:$ktorVersion")
             }
         }
@@ -78,6 +83,15 @@ android {
         targetSdk = 31
     }
 }
+
+sqldelight {
+    database("MovieDatabase") { // This will be the name of the generated database class.
+        packageName = "com.lucas.schiavini.client.db"
+        sourceFolders = listOf("sqldelight")
+    }
+}
+
+
 //dependencies {
 //    testImplementation("org.junit.jupiter:junit-jupiter")
 //}

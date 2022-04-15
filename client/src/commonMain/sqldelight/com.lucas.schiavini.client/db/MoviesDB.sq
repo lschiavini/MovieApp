@@ -1,0 +1,39 @@
+CREATE TABLE MoviesDB(
+    id INTEGER NOT NULL PRIMARY KEY,
+    originalTitle TEXT NOT NULL,
+    title TEXT NOT NULL,
+    overview TEXT NOT NULL,
+    posterPath TEXT,
+    releaseDate TEXT,
+    voteAverage TEXT,
+    director TEXT
+);
+
+insertItem:
+INSERT OR REPLACE INTO MoviesDB(
+    id,
+    originalTitle,
+    title,
+    overview,
+    posterPath,
+    releaseDate,
+    voteAverage,
+    director
+) VALUES(?,
+    ?,
+    ?,
+    ?,
+    ?,
+    ?,
+    ?,
+    ?
+);
+
+selectAll:
+SELECT * FROM MoviesDB;
+
+selectById:
+SELECT * FROM MoviesDB WHERE id = ?;
+
+deleteAll:
+DELETE FROM MoviesDB;
