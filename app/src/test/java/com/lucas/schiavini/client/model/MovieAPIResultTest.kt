@@ -4,7 +4,7 @@ import io.mockk.mockk
 import org.junit.Assert.*
 import org.junit.Test
 
-class MovieResultTest {
+class MovieAPIResultTest {
 
     private val listOfMovies = listOf(
         MovieResult(

@@ -6,7 +6,8 @@ CREATE TABLE MoviesDB(
     posterPath TEXT,
     releaseDate TEXT,
     voteAverage TEXT,
-    director TEXT
+    director TEXT,
+    runtime TEXT
 );
 
 insertItem:
@@ -18,8 +19,10 @@ INSERT OR REPLACE INTO MoviesDB(
     posterPath,
     releaseDate,
     voteAverage,
-    director
+    director,
+    runtime
 ) VALUES(?,
+    ?,
     ?,
     ?,
     ?,
