@@ -32,7 +32,7 @@ class MovieListViewModel(application: Application) : BaseViewModel(application) 
     private fun fetchFromDatabase() {
         launch {
             repository.fetchMoviesDB().also {
-                movies.value = it
+                moviesRetrieved(it)
             }
         }
     }
