@@ -7,20 +7,20 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.navigation.Navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
-import com.lucas.schiavini.client.model.MovieResult
+import com.lucas.schiavini.client.model.Movie
 import com.lucas.schiavini.movieapp.R
 import com.lucas.schiavini.movieapp.databinding.MovieItemBinding
 import kotlinx.android.synthetic.main.movie_item.view.movieId
 
 
 class MovieListAdapter(
-    private var moviesList: ArrayList<MovieResult>
+    private var moviesList: ArrayList<Movie>
 ) : RecyclerView.Adapter<MovieListAdapter.MovieViewHolder>(), MovieClickListener {
 
     private lateinit var accessView : MovieItemBinding
 
     @SuppressLint("NotifyDataSetChanged")
-    fun updateMoviesList(newMoviesList: List<MovieResult>) {
+    fun updateMoviesList(newMoviesList: List<Movie>) {
         moviesList.clear()
         moviesList.addAll(newMoviesList)
         notifyDataSetChanged()
@@ -49,7 +49,7 @@ class MovieListAdapter(
     override fun getItemCount(): Int = moviesList.size
 
     inner class MovieViewHolder(binding: MovieItemBinding) : RecyclerView.ViewHolder(binding.root) {
-        var movie: MovieResult? = binding.movie
+        var movie: Movie? = binding.movie
         var listener: MovieClickListener? = binding.listener
     }
 

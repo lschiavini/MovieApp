@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import com.lucas.schiavini.client.model.Movie
+import com.lucas.schiavini.client.model.MovieAPI
 import com.lucas.schiavini.movieapp.AndroidRepository
 import com.lucas.schiavini.movieapp.R
 import com.lucas.schiavini.movieapp.databinding.MovieDetailFragmentBinding
@@ -20,7 +21,7 @@ class MovieDetailFragment : Fragment() {
     private lateinit var viewModel: MovieDetailViewModel
     private lateinit var dataBinding: MovieDetailFragmentBinding
     private var movieId = 0
-    private var currentMovie: Movie? = null
+    private var currentMovieAPI: Movie? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -45,7 +46,7 @@ class MovieDetailFragment : Fragment() {
 
     private fun observeViewModel() {
         viewModel.movieLiveData.observe(viewLifecycleOwner, Observer { movieSelected ->
-            currentMovie = movieSelected
+            currentMovieAPI = movieSelected
             movieSelected?.let {
                 dataBinding.movie = it
             }

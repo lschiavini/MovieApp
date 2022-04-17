@@ -3,20 +3,11 @@ package com.lucas.schiavini.movieapp.viewmodel
 import android.app.Application
 import android.widget.Toast
 import androidx.lifecycle.MutableLiveData
-import com.lucas.schiavini.client.KTorSimpleClient
 import com.lucas.schiavini.client.model.Movie
 import com.lucas.schiavini.client.model.MovieResult
 import com.lucas.schiavini.client.repository.MovieRepository
-import com.lucas.schiavini.movieapp.AndroidRepository
-import com.lucas.schiavini.movieapp.model.ManyMoviesResponse
-import com.lucas.schiavini.movieapp.model.MoviesAPIService
 import com.lucas.schiavini.movieapp.util.SharedPreferencesHelper
-import com.lucas.schiavini.movieapp.view.MovieDetailFragment
-import com.lucas.schiavini.movieapp.view.MoviesListFragment
 import io.reactivex.disposables.CompositeDisposable
-import io.reactivex.observers.DisposableSingleObserver
-import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.schedulers.Schedulers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
 
@@ -29,21 +20,29 @@ class MovieListViewModel(application: Application) : BaseViewModel(application) 
 
     private val disposable = CompositeDisposable()
 
-    val movies = MutableLiveData<List<MovieResult>>()
+    val movies = MutableLiveData<List<Movie>>()
     val moviesLoadError = MutableLiveData<Boolean>()
     val loading = MutableLiveData<Boolean>()
 
     fun refresh() {
-        fetchFromRemote()
+//        fetchFromRemote()
+        fetchFromDatabase()
     }
 
+    private fun fetchFromDatabase() {
+        launch {
+            repository.fetchMoviesDB().also {
+                movies.value = it
+            }
+        }
+    }
 
     private fun fetchFromRemote() {
         runBlocking {
             launch {
                 try{
                     val listOfMovies = repository.fetchAndStoreMovies()
-                    storeMoviesLocally(listOfMovies.movieResults)
+                    deleteAndStoreMoviesLocally(listOfMovies)
                     Toast.makeText(getApplication(), "Movies retrieved from the endpoint", Toast.LENGTH_SHORT).show()
                 } catch (e:Exception){
                     moviesLoadError.value = true
@@ -58,13 +57,13 @@ class MovieListViewModel(application: Application) : BaseViewModel(application) 
         fetchFromRemote()
     }
 
-    private fun moviesRetrieved(moviesList: List<MovieResult>) {
+    private fun moviesRetrieved(moviesList: List<Movie>) {
         movies.value = moviesList
         moviesLoadError.value = false
         loading.value = false
     }
 
-    private suspend fun storeMoviesLocally(list: List<MovieResult>) {
+    private suspend fun deleteAndStoreMoviesLocally(list: List<Movie>) {
         repository.apply {
             deleteAllMovies()
             storeMoviesLocally(list)

@@ -6,7 +6,7 @@
     <data>
         <variable
             name="movie"
-            type="com.lucas.schiavini.client.model.MovieResult" />
+            type="com.lucas.schiavini.client.model.Movie" />
         <variable
             name="listener"
             type="com.lucas.schiavini.movieapp.view.MovieClickListener" />
