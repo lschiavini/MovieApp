@@ -1,6 +1,6 @@
 package com.lucas.schiavini.client
 
-import com.lucas.schiavini.client.model.Movie
+import com.lucas.schiavini.client.model.MovieAPI
 import com.lucas.schiavini.client.model.MovieListResult
 import com.lucas.schiavini.client.model.MovieResult
 import io.ktor.client.HttpClient
@@ -267,21 +267,21 @@ class KTorSimpleClient {
     }
 
 
-    suspend fun getMovie(id: String): Movie {
+    suspend fun getMovie(id: String): MovieAPI {
         val httpResponse = client.get {
             url("$movieApiAddress/movie/$id")
             parameter("append_to_response", "credits")
             parameter("api_key", apiKey)
         }
-        val movie = Json.decodeFromString<Movie>(httpResponse.bodyAsText())
+        val movie = Json.decodeFromString<MovieAPI>(httpResponse.bodyAsText())
         val director = getDirectorFromCredits(movie)
         movie.director = director
         return movie
     }
 
-    private fun getDirectorFromCredits(movie: Movie) : String {
+    private fun getDirectorFromCredits(movieAPI: MovieAPI) : String {
         return try{
-            val credits = movie.credits
+            val credits = movieAPI.credits
             val crew = credits.crew
             var director = ""
             for(element in crew) {

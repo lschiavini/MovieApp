@@ -1,24 +1,24 @@
 package com.lucas.schiavini.client.repository
 
-import com.lucas.schiavini.client.ApplicationDispatcher
 import com.lucas.schiavini.client.KTorSimpleClient
 import com.lucas.schiavini.client.db.MovieDatabase
 import com.lucas.schiavini.client.model.Movie
 import com.lucas.schiavini.client.model.MovieListResult
 import com.lucas.schiavini.client.model.MovieResult
+import com.lucas.schiavini.client.utils.toMovie
 import kotlinx.coroutines.DelicateCoroutinesApi
-import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.launch
 
 interface MovieRepositoryInterface {
     fun fetchMovieAsFlow(): Flow<Movie>
     fun fetchMoviesAsFlow(): Flow<MovieListResult>
     suspend fun fetchMovie(id: String): Movie
-    suspend fun fetchMovies(): MovieListResult
+    suspend fun fetchMovies(): List<Movie>
+    suspend fun fetchMovieDB(id: String): Movie
+    suspend fun fetchMoviesDB(): List<Movie>
     suspend fun fetchAndStoreMovie(id: String) : Movie
-    suspend fun fetchAndStoreMovies() : MovieListResult
-    suspend fun storeMoviesLocally(movieResults: List<MovieResult>)
+    suspend fun fetchAndStoreMovies() : List<Movie>
+    suspend fun storeMoviesLocally(movies: List<Movie>)
     suspend fun storeSingleMovieLocally(movie: Movie)
     suspend fun deleteAllMovies()
 }
@@ -46,50 +46,66 @@ class MovieRepository(
     }
 
     override suspend fun fetchMovie(id: String): Movie {
-        return moviesApi.getMovie(id)
+        return moviesApi.getMovie(id).toMovie()
     }
 
-    override suspend fun fetchMovies(): MovieListResult {
-        return moviesApi.getMovies()
+    override suspend fun fetchMovies(): List<Movie> {
+        //        val movieResults = moviesApi.getMovies()
+        val movieResults = moviesApi.mockGetMovies()
+        return movieResults.movieResults.map {
+            it.toMovie()
+        }
+    }
+
+    override suspend fun fetchMovieDB(id: String): Movie {
+        return database.moviesDBQueries.selectById(id.toLong()).executeAsOne().toMovie()
+    }
+
+    override suspend fun fetchMoviesDB(): List<Movie> {
+        val movieList = database.moviesDBQueries.selectAll().executeAsList().map {
+            it.toMovie()
+        }
+        return movieList
     }
 
     override suspend fun fetchAndStoreMovie(id: String) : Movie {
-        val movie = moviesApi.getMovie(id)
+        val movie = fetchMovie(id)
         storeSingleMovieLocally(movie)
         return movie
     }
 
     override suspend fun storeSingleMovieLocally(movie: Movie) {
         database.moviesDBQueries.insertItem(
-            movie.id.toLong(),
+            movie.id,
             movie.originalTitle,
             movie.title,
             movie.overview,
             movie.posterPath,
             movie.releaseDate,
             movie.voteAverage.toString(),
-            movie.director
+            movie.director,
+            movie.runtime
         )
     }
 
-    override suspend fun fetchAndStoreMovies(): MovieListResult {
-//        val movieResults = moviesApi.getMovies()
-        val movieResults = moviesApi.mockGetMovies()
-        storeMoviesLocally(movieResults.movieResults)
-        return movieResults
+    override suspend fun fetchAndStoreMovies(): List<Movie> {
+        val movieList = fetchMovies()
+        storeMoviesLocally(movieList)
+        return movieList
     }
 
-    override suspend fun storeMoviesLocally(movieResults: List<MovieResult>) {
-        movieResults.forEach {movie ->
+    override suspend fun storeMoviesLocally(movies: List<Movie>) {
+        movies.forEach {movie ->
             database.moviesDBQueries.insertItem(
-                movie.id.toLong(),
+                movie.id,
                 movie.originalTitle,
                 movie.title,
                 movie.overview,
                 movie.posterPath,
                 movie.releaseDate,
                 movie.voteAverage.toString(),
-                ""
+                "",
+                runtime = null
             )
         }
     }
