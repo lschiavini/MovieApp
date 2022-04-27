@@ -4,7 +4,6 @@ import com.lucas.schiavini.client.KTorSimpleClient
 import com.lucas.schiavini.client.db.MovieDatabase
 import com.lucas.schiavini.client.model.Movie
 import com.lucas.schiavini.client.model.MovieListResult
-import com.lucas.schiavini.client.model.MovieResult
 import com.lucas.schiavini.client.utils.toMovie
 import kotlinx.coroutines.DelicateCoroutinesApi
 import kotlinx.coroutines.flow.Flow
@@ -46,7 +45,8 @@ class MovieRepository(
     }
 
     override suspend fun fetchMovie(id: String): Movie {
-        return moviesApi.getMovie(id).toMovie()
+        val movie = moviesApi.getMovie(id).toMovie()
+        return movie
     }
 
     override suspend fun fetchMovies(): List<Movie> {

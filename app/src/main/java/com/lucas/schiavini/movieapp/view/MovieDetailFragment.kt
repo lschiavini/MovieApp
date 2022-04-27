@@ -39,8 +39,7 @@ class MovieDetailFragment : Fragment() {
         viewModel = ViewModelProvider(this)[MovieDetailViewModel::class.java]
         val androidRepo = AndroidRepository(requireContext())
         viewModel.repository = androidRepo.repository
-        viewModel.fetchMovieFromRemote(movieId)
-//        viewModel.fetch(movieId)
+        viewModel.fetchMovie(movieId)
         observeViewModel()
     }
 

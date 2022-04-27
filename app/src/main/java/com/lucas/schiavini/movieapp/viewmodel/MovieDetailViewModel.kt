@@ -12,28 +12,38 @@ class MovieDetailViewModel(application: Application) : BaseViewModel(application
     val movieLiveData = MutableLiveData<Movie>()
     var repository: MovieRepository? = null
 
-    fun fetchFromDatabase(id: Int) {
+    fun fetchMovie(id: Int) {
+        fetchFromDatabase(id)
+        if(movieLiveData.value?.director == null) {
+            fetchMovieFromRemote(id)
+        }
+    }
+
+    private fun fetchFromDatabase(id: Int) {
         launch {
             val movie = repository?.fetchMovieDB(id.toString())?.also {
-                movieLiveData.value = it
+                setMovieLiveData(it)
             }
         }
     }
 
-    fun fetchMovieFromRemote(id: Int) {
+    private fun fetchMovieFromRemote(id: Int) {
         runBlocking {
             launch {
                 try{
-                    val currentMovie = repository?.fetchAndStoreMovie(id.toString())?.also {
-                        movieLiveData.value = it
+                    repository?.fetchAndStoreMovie(id.toString())?.also {
+                        setMovieLiveData(it)
                     }
                 } catch (e:Exception){
-                    Log.e("Error AAAAAA", e.toString())
+                    Log.e("Error", e.toString())
                 }
             }
         }
     }
 
+    private fun setMovieLiveData(movie: Movie) {
+        movieLiveData.value = movie
+    }
 
 }
 
