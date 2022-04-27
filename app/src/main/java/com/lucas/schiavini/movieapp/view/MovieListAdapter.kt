@@ -1,56 +1,65 @@
 package com.lucas.schiavini.movieapp.view
 
-import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.databinding.DataBindingUtil
+import androidx.core.net.toUri
 import androidx.navigation.Navigation.findNavController
+import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.lucas.schiavini.client.model.Movie
-import com.lucas.schiavini.movieapp.R
 import com.lucas.schiavini.movieapp.databinding.MovieItemBinding
-import kotlinx.android.synthetic.main.movie_item.view.movieId
+import com.lucas.schiavini.movieapp.util.loadImage
+import kotlinx.android.synthetic.main.movie_item.view.*
 
+
+class MovieListDiffCallback : DiffUtil.ItemCallback<Movie>() {
+    override fun areItemsTheSame(oldItem: Movie, newItem: Movie): Boolean {
+        return oldItem.id == newItem.id
+    }
+
+    override fun areContentsTheSame(oldItem: Movie, newItem: Movie): Boolean {
+        return oldItem == newItem
+    }
+}
 
 class MovieListAdapter(
-    private var moviesList: ArrayList<Movie>
-) : RecyclerView.Adapter<MovieListAdapter.MovieViewHolder>(), MovieClickListener {
 
-    private lateinit var accessView : MovieItemBinding
+) : ListAdapter<Movie, MovieListAdapter.MovieViewHolder>(MovieListDiffCallback()) {
 
-    @SuppressLint("NotifyDataSetChanged")
-    fun updateMoviesList(newMoviesList: List<Movie>) {
-        moviesList.clear()
-        moviesList.addAll(newMoviesList)
-        notifyDataSetChanged()
-    }
+    lateinit var view : View
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MovieViewHolder {
-        val inflater = LayoutInflater.from(parent.context)
-        val view = DataBindingUtil.inflate<MovieItemBinding>(inflater, R.layout.movie_item, parent, false)
-        accessView = view
-        return MovieViewHolder(view)
-    }
-
-    override fun onBindViewHolder(holder: MovieViewHolder, position: Int) {
-        val item = moviesList[position]
-        accessView.movie = item
-        accessView.listener = this
-    }
-
-    override fun onMovieClicked(v: View) {
+    private fun clickListener (v: View) {
         val id = v.movieId.text.toString()
         val action = MoviesListFragmentDirections.actionMovieFragmentToMovieDetail()
         action.movieId = id.toInt()
         findNavController(v).navigate(action)
     }
 
-    override fun getItemCount(): Int = moviesList.size
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MovieViewHolder {
+        val inflater = LayoutInflater.from(parent.context)
+        val binding = MovieItemBinding.inflate(inflater, parent, false)
+        val view = binding.root
+        return MovieViewHolder(view)
+    }
 
-    inner class MovieViewHolder(binding: MovieItemBinding) : RecyclerView.ViewHolder(binding.root) {
-        var movie: Movie? = binding.movie
-        var listener: MovieClickListener? = binding.listener
+    override fun onBindViewHolder(holder: MovieViewHolder, position: Int) {
+        holder.bind(getItem(position)) { newView -> clickListener(newView) }
+    }
+
+    inner class MovieViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+
+        fun bind(newMovie: Movie, clickListener: (View) -> Unit) {
+            itemView.apply {
+                loadImage(imageView, newMovie.posterPath)
+                movieId.text = newMovie.id.toString()
+                title.text = newMovie.title
+                releaseDate.text = newMovie.releaseDate
+                setOnClickListener(clickListener)
+            }
+        }
+
     }
 
 }

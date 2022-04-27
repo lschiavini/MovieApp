@@ -14,6 +14,7 @@ import com.lucas.schiavini.client.model.Movie
 import com.lucas.schiavini.movieapp.AndroidRepository
 import com.lucas.schiavini.movieapp.R
 import com.lucas.schiavini.movieapp.viewmodel.MovieListViewModel
+import kotlinx.android.synthetic.main.movie_item.view.*
 import kotlinx.android.synthetic.main.movies_list_fragment.*
 
 /**
@@ -23,11 +24,12 @@ class MoviesListFragment : Fragment() {
 
     private lateinit var viewModel: MovieListViewModel
 
-    private var movieListAdapter = MovieListAdapter(arrayListOf())
+    private var movieListAdapter = MovieListAdapter()
+
+
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
         viewModel = ViewModelProviders.of(this)[MovieListViewModel::class.java]
         val androidRepo = AndroidRepository(requireContext())
         viewModel.repository = androidRepo.repository
@@ -65,7 +67,7 @@ class MoviesListFragment : Fragment() {
         viewModel.movies.observe(viewLifecycleOwner, Observer { movies: List<Movie> ->
             movies.let {
                 moviesList.visibility = View.VISIBLE
-                movieListAdapter.updateMoviesList(movies)
+                movieListAdapter.submitList(movies)
             }
         })
 

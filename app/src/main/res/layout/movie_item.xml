@@ -1,63 +1,44 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout
-    xmlns:android="http://schemas.android.com/apk/res/android"
->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/movieLinearLayoutItem"
+    android:layout_width="match_parent"
+    android:layout_height="125dp"
+    android:orientation="horizontal">
 
-    <data>
-        <variable
-            name="movie"
-            type="com.lucas.schiavini.client.model.Movie" />
-        <variable
-            name="listener"
-            type="com.lucas.schiavini.movieapp.view.MovieClickListener" />
-    </data>
+    <TextView
+        android:id="@+id/movieId"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone" />
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="2"
+        android:padding="4dp"
+        android:contentDescription="@string/movie_image" />
 
     <LinearLayout
-        android:id="@+id/movieLinearLayoutItem"
-        android:layout_width="match_parent"
-        android:layout_height="125dp"
-        android:orientation="horizontal"
-        android:onClick="@{listener::onMovieClicked}">
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="3"
+        android:gravity="center_vertical"
+        android:orientation="vertical"
+        android:padding="4dp">
 
         <TextView
-            android:id="@+id/movieId"
+            android:id="@+id/title"
+            style="@style/Title"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:visibility="gone"
-            android:text="@{String.valueOf(movie.id)}" />
+            android:layout_height="wrap_content"/>
 
-        <ImageView
-            android:id="@+id/imageView"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="2"
-            android:imageUrl="@{movie.posterPath}"
-            android:padding="4dp"
-            android:contentDescription="@string/movie_image" />
-
-        <LinearLayout
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="3"
-            android:gravity="center_vertical"
-            android:orientation="vertical"
-            android:padding="4dp">
-
-            <TextView
-                android:id="@+id/title"
-                style="@style/Title"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@{movie.title}" />
-
-            <TextView
-                android:id="@+id/releaseDate"
-                style="@style/Text"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@{movie.releaseDate}" />
-
-        </LinearLayout>
+        <TextView
+            android:id="@+id/releaseDate"
+            style="@style/Text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
 
     </LinearLayout>
-</layout>
+
+</LinearLayout>
